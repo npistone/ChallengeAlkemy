@@ -42,7 +42,7 @@ public interface PeliculaRepositorio extends JpaRepository<Pelicula, Integer>, J
     List<Pelicula>buscarPorNombreYGeneroOrdenAsc(@Param("nombre")String nombre,
                                             @Param("genero")String genero);
     
-    
+        
     
     /*public interface UserRepository extends JpaRepository<User,Integer>, JpaSpecificationExecutor<Pelicula> {
          // Nombre el nombre del método de acuerdo con la palabra clave springData, sin escribir la clase de implementación
