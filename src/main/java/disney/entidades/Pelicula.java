@@ -38,7 +38,7 @@ public class Pelicula {
     private Integer id;
     
     @Column(name="titulo")
-    @NotEmpty(message="Debe ingresar un valor")
+    @NotEmpty(message="Debe ingresar un titulo")
     private String titulo;
     
     
@@ -48,12 +48,12 @@ public class Pelicula {
     @Column(name="calificacion")
     @Min(value=0)
     @Max(value=5)
-    @NotEmpty(message="Debe ingresar un valor")
+    @NotEmpty(message="Debe ingresar la calificacion")
     private Integer calificacion;
     
     @Temporal (TemporalType.DATE)
     @Column(name="creacion")
-    @NotEmpty(message="Debe ingresar un valor")
+    @NotEmpty(message="Debe ingresar la fecha de creacion")
     private Date creacion;
     
     
@@ -61,10 +61,12 @@ public class Pelicula {
     @JoinTable(name = "personajes_xpelicula", joinColumns = 
         @JoinColumn(name = "pelicula_id"),
         inverseJoinColumns = @JoinColumn(name = "personaje_id"))
+    @NotEmpty(message="Debe ingresar los personajes")
     private List<Personaje> personajes;
     
    @ManyToOne
-   @JoinColumn(name="peliculas_xGenero")
+   @JoinColumn(name="genero")
+   @NotEmpty(message="Debe ingresar el genero")
     private Genero genero;
 
     public Pelicula() {

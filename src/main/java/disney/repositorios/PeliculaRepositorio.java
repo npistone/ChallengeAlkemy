@@ -20,16 +20,27 @@ import org.springframework.data.repository.query.Param;
 public interface PeliculaRepositorio extends JpaRepository<Pelicula, Integer>, JpaSpecificationExecutor<Pelicula>{
     
     @Query(nativeQuery = true, value ="select a.nombre, a.imagen from Pelicula where a.nombre= :nombre "
-            + "order by a.creacion :orden ")
-    public List<Pelicula>buscarPorNombreYGenero(@Param("nombre")String nombre, @Param("orden")String orden);
+            + "and a.genero.nombre= :genero order by a.creacion :orden ")
+    public List<Pelicula>buscarPorNombreGeneroYOrden(@Param("nombre")String nombre,
+                                                     @Param("orden")String orden,
+                                                     @Param("genero")String genero);
     
+    @Query("SELECT a FROM Pelicula a ORDER BY a.creacion DESC")
+    List<Pelicula>findAllDesc();
     
     @Query("SELECT a FROM Pelicula a WHERE a.titulo= :nombre ORDER BY a.creacion ASC")
-    public List<Pelicula>buscarPorNombre(@Param("nombre")String nombre);
+    List<Pelicula>buscarPorNombreAsc(@Param("nombre")String nombre);
     
-   /* @Query("SELECT a FROM Pelicula a WHERE a.titulo= :nombre AND a.genero.id= :genero ORDER BY a.creacion :orden")
-    public List<Pelicula>buscarPorNombreYGeneroYOrden(@Param("nombre")String nombre,
-            @Param("genero")Integer genero, @Param("orden")String orden);
+    @Query("SELECT a FROM Pelicula a WHERE a.titulo= :nombre ORDER BY a.creacion DESC")
+    List<Pelicula>buscarPorNombreDesc(@Param("nombre")String nombre);
+    
+   @Query("SELECT a FROM Pelicula a WHERE a.titulo= :nombre AND a.genero.nombre= :genero ORDER BY a.creacion DESC")
+    List<Pelicula>buscarPorNombreYGeneroOrdenDes(@Param("nombre")String nombre,
+                                                 @Param("genero")String genero);
+    
+    @Query("SELECT a FROM Pelicula a WHERE a.titulo= :nombre AND a.genero.nombre= :genero ORDER BY a.creacion ASC")
+    List<Pelicula>buscarPorNombreYGeneroOrdenAsc(@Param("nombre")String nombre,
+                                            @Param("genero")String genero);
     
     
     
